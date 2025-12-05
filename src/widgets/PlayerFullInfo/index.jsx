@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import Spring from '@components/Spring';
 import LazyImage from '@components/LazyImage';
 import InfoTabsNav from '@components/InfoTabsNav';
-import Goal from '@assets/goal.svg';
+import Goal from '@assets/goal.svg?react';
 
 // hooks
 import {useThemeProvider} from '@contexts/themeContext';
