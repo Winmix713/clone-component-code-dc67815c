@@ -1,8 +1,14 @@
-// GA
+import * as React from 'react';
 import ReactGA from 'react-ga4';
 
 // utils
-import {lazy, Suspense} from 'react';
+import {lazy, Suspense, useEffect, useRef} from 'react';
+import {StyleSheetManager, ThemeProvider} from 'styled-components';
+import {ThemeProvider as MuiThemeProvider, createTheme} from '@mui/material/styles';
+import {preventDefault} from '@utils/helpers';
+import rtlPlugin from 'stylis-plugin-rtl';
+import {CacheProvider} from '@emotion/react';
+import createCache from '@emotion/cache';
 
 // styles
 import ThemeStyles from '@styles/theme';
@@ -17,24 +23,15 @@ import 'swiper/css/pagination';
 
 // contexts
 import {SidebarProvider} from '@contexts/sidebarContext';
-import {ThemeProvider} from 'styled-components';
+import {useThemeProvider} from '@contexts/themeContext';
 
 // hooks
-import {useThemeProvider} from '@contexts/themeContext';
-import {useEffect, useRef} from 'react';
 import {useWindowSize} from 'react-use';
 import useAuthRoute from '@hooks/useAuthRoute';
 
-// utils
-import {StyleSheetManager} from 'styled-components';
-import {ThemeProvider as MuiThemeProvider, createTheme} from '@mui/material/styles';
-import {preventDefault} from '@utils/helpers';
-import rtlPlugin from 'stylis-plugin-rtl';
-import {CacheProvider} from '@emotion/react';
-import createCache from '@emotion/cache';
-
 // components
-import {Route, Routes} from 'react-router-dom';
+// ADDED: BrowserRouter import
+import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 import LoadingScreen from '@components/LoadingScreen';
 import Sidebar from '@layout/Sidebar';
@@ -42,6 +39,11 @@ import BottomNav from '@layout/BottomNav';
 import Navbar from '@layout/Navbar';
 import ShoppingCart from '@widgets/ShoppingCart';
 import ScrollToTop from '@components/ScrollToTop';
+
+// FIX: Polyfill for "process is not defined" error
+if (typeof window !== 'undefined' && !window.process) {
+    window.process = { env: {} };
+}
 
 // pages
 const ClubSummary = lazy(() => import('@pages/ClubSummary'));
@@ -63,7 +65,8 @@ const Login = lazy(() => import('@pages/Login'));
 const SignUp = lazy(() => import('@pages/SignUp'));
 const Settings = lazy(() => import('@pages/Settings'));
 
-const App = () => {
+// CHANGED: Moved logic into AppContent so it can use Router context
+const AppContent = () => {
     const appRef = useRef(null);
     const {theme, direction} = useThemeProvider();
     const {width} = useWindowSize();
@@ -74,7 +77,6 @@ const App = () => {
     gaKey && ReactGA.initialize(gaKey);
 
     // auto RTL support for Material-UI components and styled-components
-
     const plugins = direction === 'rtl' ? [rtlPlugin] : [];
 
     const muiTheme = createTheme({
@@ -89,7 +91,6 @@ const App = () => {
     useEffect(() => {
         // scroll to top on route change
         appRef.current && appRef.current.scrollTo(0, 0);
-
         preventDefault();
     }, []);
 
@@ -107,12 +108,8 @@ const App = () => {
                                     !isAuthRoute && (
                                         <>
                                             <Sidebar/>
-                                            {
-                                                width < 768 && <Navbar/>
-                                            }
-                                            {
-                                                width < 768 && <BottomNav/>
-                                            }
+                                            {width < 768 && <Navbar/>}
+                                            {width < 768 && <BottomNav/>}
                                         </>
                                     )
                                 }
@@ -149,6 +146,15 @@ const App = () => {
                 </SidebarProvider>
             </MuiThemeProvider>
         </CacheProvider>
+    );
+}
+
+// MAIN COMPONENT: Wraps AppContent with BrowserRouter
+const App = () => {
+    return (
+        <BrowserRouter>
+            <AppContent />
+        </BrowserRouter>
     );
 }
 
