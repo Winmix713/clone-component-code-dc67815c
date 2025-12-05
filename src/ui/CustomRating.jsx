@@ -4,9 +4,9 @@ import theme from 'styled-theming';
 
 // components
 import Rating from '@mui/material/Rating';
-import BarIcon from '@assets/bar.svg?react';
-import StarFilledIcon from '@assets/icons/star-solid.svg?react';
-import StarEmptyIcon from '@assets/icons/star-regular.svg?react';
+import BarIcon from '@assets/bar.svg';
+import StarFilledIcon from '@assets/icons/star-solid.svg';
+import StarEmptyIcon from '@assets/icons/star-regular.svg';
 
 // utils
 import PropTypes from 'prop-types';
