@@ -58,7 +58,11 @@ export default defineConfig(({ mode }) => ({
       "@contexts": path.resolve(__dirname, "./src/contexts"),
       "@constants": path.resolve(__dirname, "./src/constants"),
       "@features": path.resolve(__dirname, "./src/features"),
+      // React duplikáció elkerülése
+      "react": path.resolve(__dirname, "./node_modules/react"),
+      "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
     },
+    dedupe: ["react", "react-dom"], // Biztosítja, hogy csak egy React példány legyen
   },
 
   // Build optimalizációk
@@ -91,12 +95,13 @@ export default defineConfig(({ mode }) => ({
   // Dependency optimalizáció
   optimizeDeps: {
     exclude: ["babel-plugin-macros"],
-    include: ["react", "react-dom"],
+    include: ["react", "react-dom", "react/jsx-runtime"],
     esbuildOptions: {
       loader: {
         ".js": "jsx",
       },
     },
+    force: true, // Újra optimalizálja a dependenciákat
   },
 
   // SSR konfiguráció (ha használod)
