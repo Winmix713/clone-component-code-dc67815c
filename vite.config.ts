@@ -10,23 +10,7 @@ const __dirname = path.dirname(__filename);
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
-    react({
-      // SWC alapértelmezetten gyorsabb, de ha styled-components-et használsz Babel-lel:
-      // jsxImportSource: '@emotion/react',
-      babel: mode === "development" ? {
-        plugins: [
-          [
-            "babel-plugin-styled-components",
-            {
-              displayName: true,
-              fileName: true,
-              ssr: false,
-              pure: true,
-            },
-          ],
-        ],
-      } : undefined,
-    }),
+    react(),
     svgr({
       svgrOptions: {
         icon: true,
@@ -111,8 +95,8 @@ export default defineConfig(({ mode }) => ({
 
   // Development szerver
   server: {
-    host: "::", // IPv6 és IPv4 támogatás
-    port: 5000,
+    host: "::",
+    port: 8080,
     strictPort: false,
     open: false,
     cors: true,
