@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 // components
 import Spring from '@components/Spring';
 import LazyImage from '@components/LazyImage';
-import Goal from '@assets/goal.svg';
+import Goal from '@assets/goal.svg?react';
 
 // hooks
 import {useThemeProvider} from '@contexts/themeContext';
