@@ -3,43 +3,135 @@ import react from "@vitejs/plugin-react-swc";
 import svgr from "vite-plugin-svgr";
 import path from "path";
 import { fileURLToPath } from "url";
-import { componentTagger } from "lovable-tagger";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-  },
   plugins: [
-    react(), 
+    react({
+      // SWC alapértelmezetten gyorsabb, de ha styled-components-et használsz Babel-lel:
+      // jsxImportSource: '@emotion/react',
+      babel: mode === "development" ? {
+        plugins: [
+          [
+            "babel-plugin-styled-components",
+            {
+              displayName: true,
+              fileName: true,
+              ssr: false,
+              pure: true,
+            },
+          ],
+        ],
+      } : undefined,
+    }),
     svgr({
       svgrOptions: {
-        exportType: 'default',
+        icon: true,
+        exportType: "default",
       },
     }),
-    mode === "development" && componentTagger()
-  ].filter(Boolean),
+  ],
+
+  // Környezeti változók kezelése
+  define: {
+    "process.env": process.env,
+  },
+
+  // Path aliasok
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@contexts": path.resolve(__dirname, "./src/contexts"),
-      "@hooks": path.resolve(__dirname, "./src/hooks"),
-      "@pages": path.resolve(__dirname, "./src/pages"),
       "@components": path.resolve(__dirname, "./src/components"),
-      "@layout": path.resolve(__dirname, "./src/layout"),
-      "@widgets": path.resolve(__dirname, "./src/widgets"),
-      "@utils": path.resolve(__dirname, "./src/utils"),
-      "@styles": path.resolve(__dirname, "./src/styles"),
       "@ui": path.resolve(__dirname, "./src/ui"),
-      "@db": path.resolve(__dirname, "./src/db"),
-      "@constants": path.resolve(__dirname, "./src/constants"),
+      "@pages": path.resolve(__dirname, "./src/pages"),
       "@assets": path.resolve(__dirname, "./src/assets"),
-      "@features": path.resolve(__dirname, "./src/features"),
+      "@styles": path.resolve(__dirname, "./src/styles"),
+      "@db": path.resolve(__dirname, "./src/db"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
+      "@layout": path.resolve(__dirname, "./src/layout"),
       "@fonts": path.resolve(__dirname, "./src/fonts"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
+      "@widgets": path.resolve(__dirname, "./src/widgets"),
+      "@contexts": path.resolve(__dirname, "./src/contexts"),
+      "@constants": path.resolve(__dirname, "./src/constants"),
+      "@features": path.resolve(__dirname, "./src/features"),
     },
+  },
+
+  // Build optimalizációk
+  build: {
+    target: "es2015",
+    outDir: "dist",
+    sourcemap: mode === "development",
+    minify: mode === "production" ? "esbuild" : false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+        },
+      },
+    },
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+    chunkSizeWarningLimit: 1000,
+  },
+
+  // ESBuild konfiguráció
+  esbuild: {
+    loader: "jsx",
+    include: /src\/.*\.jsx?$/,
+    exclude: [],
+    logOverride: { "this-is-undefined-in-esm": "silent" },
+  },
+
+  // Dependency optimalizáció
+  optimizeDeps: {
+    exclude: ["babel-plugin-macros"],
+    include: ["react", "react-dom"],
+    esbuildOptions: {
+      loader: {
+        ".js": "jsx",
+      },
+    },
+  },
+
+  // SSR konfiguráció (ha használod)
+  ssr: {
+    noExternal: ["styled-components", "@mui/styled-engine-sc"],
+  },
+
+  // Development szerver
+  server: {
+    host: "::", // IPv6 és IPv4 támogatás
+    port: 5000,
+    strictPort: false,
+    open: false,
+    cors: true,
+    hmr: {
+      overlay: true,
+    },
+    watch: {
+      usePolling: true,
+      interval: 1000,
+      ignored: ["**/node_modules/**", "**/dist/**"],
+    },
+  },
+
+  // Preview szerver (production build preview-hoz)
+  preview: {
+    host: "::",
+    port: 4173,
+    strictPort: false,
+    open: false,
+  },
+
+  // Teljesítmény optimalizáció
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
 }));
