@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -11,7 +11,19 @@ const __dirname = path.dirname(__filename);
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: [
+          [
+            "babel-plugin-styled-components",
+            {
+              displayName: true,
+              fileName: false,
+            },
+          ],
+        ],
+      },
+    }),
     svgr({
       svgrOptions: {
         icon: true,
@@ -21,12 +33,10 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
 
-  // Környezeti változók kezelése
   define: {
     "process.env": process.env,
   },
 
-  // Path aliasok
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -44,14 +54,9 @@ export default defineConfig(({ mode }) => ({
       "@contexts": path.resolve(__dirname, "./src/contexts"),
       "@constants": path.resolve(__dirname, "./src/constants"),
       "@features": path.resolve(__dirname, "./src/features"),
-      // React duplikáció elkerülése
-      "react": path.resolve(__dirname, "./node_modules/react"),
-      "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
     },
-    dedupe: ["react", "react-dom"], // Biztosítja, hogy csak egy React példány legyen
   },
 
-  // Build optimalizációk
   build: {
     target: "es2015",
     outDir: "dist",
@@ -60,64 +65,31 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ["react", "react-dom"],
+          vendor: ["react", "react-dom", "react-router-dom"],
         },
       },
     },
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    chunkSizeWarningLimit: 1000,
   },
-
-  // ESBuild konfiguráció
-  esbuild: {
-    loader: "jsx",
-    include: /src\/.*\.jsx?$/,
-    exclude: [],
-    logOverride: { "this-is-undefined-in-esm": "silent" },
-  },
-
-  // Dependency optimalizáció
+  
   optimizeDeps: {
-    exclude: ["babel-plugin-macros"],
-    include: ["react", "react-dom", "react/jsx-runtime"],
-    esbuildOptions: {
-      loader: {
-        ".js": "jsx",
-      },
-    },
-    force: true, // Újra optimalizálja a dependenciákat
+    include: ['styled-components', '@mui/material', '@mui/styled-engine-sc'],
   },
 
-  // SSR konfiguráció (ha használod)
-  ssr: {
-    noExternal: ["styled-components", "@mui/styled-engine-sc"],
-  },
-
-  // Development szerver
   server: {
     host: "::",
     port: 8080,
     strictPort: false,
     open: false,
     cors: true,
-    hmr: {
-      overlay: true,
-    },
-    watch: {
-      usePolling: true,
-      interval: 1000,
-      ignored: ["**/node_modules/**", "**/dist/**"],
-    },
   },
 
-  // Preview szerver (production build preview-hoz)
   preview: {
     host: "::",
     port: 4173,
     strictPort: false,
     open: false,
   },
-
 }));

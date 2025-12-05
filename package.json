@@ -26,10 +26,8 @@
     "@reduxjs/toolkit": "^1.9.7",
     "@tanstack/react-table": "^8.21.3",
     "@types/node": "^24.10.1",
-    "@vitejs/plugin-react-swc": "^4.2.2",
     "autoprefixer": "^10.4.22",
     "axios": "^1.13.2",
-    "babel-plugin-macros": "^3.1.0",
     "classnames": "^2.5.1",
     "country-state-city": "^3.2.1",
     "dayjs": "^1.11.19",
@@ -61,7 +59,7 @@
     "react-use-measure": "^2.1.7",
     "recharts": "^2.15.4",
     "rtl-detect": "^1.1.2",
-    "styled-components": "^5.3.11",
+    "styled-components": "^6.1.19",
     "styled-theming": "^2.2.0",
     "stylis-plugin-rtl": "^2.1.1",
     "swiper": "^8.4.7",
@@ -69,12 +67,16 @@
     "use-gauge": "^0.5.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^5.1.1",
+    "@vitejs/plugin-react": "^4.2.1",
     "babel-plugin-styled-components": "^2.1.4",
     "esbuild": "^0.27.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
     "lovable-tagger": "^1.1.11",
     "sass": "^1.94.2",
-    "vite": "^7.2.6",
+    "vite": "^5.2.0",
     "vite-plugin-svgr": "^4.5.0"
   }
 }

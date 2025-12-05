@@ -1,11 +1,9 @@
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const useAuthRoute = () => {
-    const authRoutes = ['/login', '/sign-up'];
     const location = useLocation();
-    
-    // Simply return the boolean value derived from the current location
-    return authRoutes.includes(location.pathname);
-}
+    // Return true if the current path is login or sign-up
+    return ['/login', '/sign-up'].includes(location.pathname);
+};
 
-export default useAuthRoute
+export default useAuthRoute;
