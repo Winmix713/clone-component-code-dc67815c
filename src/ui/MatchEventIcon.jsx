@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from 'styled-theming';
 
 // components
-import SubstitutionIcon from '@assets/icons/substitution.svg?react';
+import SubstitutionIcon from '@assets/icons/substitution.svg';
 
 // hooks
 import {useThemeProvider} from '@contexts/themeContext';

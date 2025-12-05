@@ -16,7 +16,8 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(), 
-svgr({
+    svgr({
+      include: '**/*.svg',
       svgrOptions: {
         exportType: 'default',
       },
