@@ -1,31 +1,29 @@
-import {useState, createContext, useContext, useEffect} from 'react';
+import * as React from 'react';
 import {useLocation} from 'react-router-dom';
-import useScrollLock from '@hooks/useScrollLock';
 
-const ShopContext = createContext(undefined);
+const ShopContext = React.createContext(undefined);
 
 export const ShopProvider = ({children}) => {
-    const [cartOpen, setCartOpen] = useState(false);
-    const [filtersOpen, setFiltersOpen] = useState(false);
+    const [cartOpen, setCartOpen] = React.useState(false);
+    const [filtersOpen, setFiltersOpen] = React.useState(false);
     const location = useLocation();
-    const setIsLocked = useScrollLock();
 
     // close sidebar when route changes
-    useEffect(() => {
+    React.useEffect(() => {
         setFiltersOpen(false);
     }, [location]);
 
-    useEffect(() => {
+    // Handle scroll lock
+    React.useEffect(() => {
         if (filtersOpen) {
-            setIsLocked(true);
+            document.documentElement.classList.add('no-scroll');
         } else {
-            setIsLocked(false);
+            document.documentElement.classList.remove('no-scroll');
         }
 
         return () => {
-            setIsLocked(false);
+            document.documentElement.classList.remove('no-scroll');
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filtersOpen]);
 
     return (
@@ -35,4 +33,4 @@ export const ShopProvider = ({children}) => {
     )
 }
 
-export const useShopProvider = () => useContext(ShopContext);
+export const useShopProvider = () => React.useContext(ShopContext);
