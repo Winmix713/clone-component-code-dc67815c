@@ -16,10 +16,9 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(), 
-    svgr({
+svgr({
       svgrOptions: {
-        exportType: 'named',
-        namedExport: 'ReactComponent',
+        exportType: 'default',
       },
     }),
     mode === "development" && componentTagger()
