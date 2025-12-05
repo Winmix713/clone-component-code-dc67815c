@@ -120,9 +120,4 @@ export default defineConfig(({ mode }) => ({
     open: false,
   },
 
-  // Teljesítmény optimalizáció
-  performance: {
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
-  },
 }));

@@ -1,7 +1,7 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import * as React from 'react';
 import {isRtlLang} from 'rtl-detect';
 
-const ThemeContext = createContext(undefined);
+const ThemeContext = React.createContext(undefined);
 
 export const ThemeProvider = ({children}) => {
     const page = document.documentElement;
@@ -9,9 +9,9 @@ export const ThemeProvider = ({children}) => {
     const browserTheme = window.matchMedia('(prefers-color-scheme: light)');
     const persisted = JSON.parse(localStorage.getItem('preferences') || '{}');
 
-    const [theme, setTheme] = useState(persisted && persisted.theme ?  persisted.theme : (browserTheme.matches ? 'light' : 'dark'));
-    const [fontScale, setFontScale] = useState(persisted.fontScale || 1);
-    const [direction, setDirection] = useState(persisted.direction || (isRtl ? 'rtl' : 'ltr'));
+    const [theme, setTheme] = React.useState(persisted && persisted.theme ?  persisted.theme : (browserTheme.matches ? 'light' : 'dark'));
+    const [fontScale, setFontScale] = React.useState(persisted.fontScale || 1);
+    const [direction, setDirection] = React.useState(persisted.direction || (isRtl ? 'rtl' : 'ltr'));
 
     const stopTransition = () => {
         page.classList.add('no-transition');
@@ -41,7 +41,7 @@ export const ThemeProvider = ({children}) => {
         page.setAttribute('dir', direction);
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
         page.style.setProperty('--font-scale', fontScale);
         page.style.setProperty('--widget-scale', fontScale === 1 ? '0px' : `${fontScale * 3}px`);
         page.setAttribute('dir', direction);
@@ -72,4 +72,4 @@ export const ThemeProvider = ({children}) => {
     );
 }
 
-export const useThemeProvider = () => useContext(ThemeContext);
+export const useThemeProvider = () => React.useContext(ThemeContext);

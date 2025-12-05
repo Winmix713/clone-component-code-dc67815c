@@ -1,12 +1,12 @@
+import * as React from 'react';
 import {useLocation} from 'react-router-dom';
-import {useEffect, useState} from 'react';
 
 const useStoreRoute = () => {
     const storeRoutes = ['/football-store', '/brand-store', '/product'];
     const location = useLocation();
-    const [isStoreRoute, setIsStoreRoute] = useState(false);
+    const [isStoreRoute, setIsStoreRoute] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setIsStoreRoute(storeRoutes.includes(location.pathname));
 
         return () => {

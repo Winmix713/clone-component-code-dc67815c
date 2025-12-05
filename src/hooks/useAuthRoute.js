@@ -1,12 +1,12 @@
+import * as React from 'react';
 import {useLocation} from 'react-router-dom';
-import {useEffect, useState} from 'react';
 
 const useAuthRoute = () => {
     const authRoutes = ['/login', '/sign-up'];
     const location = useLocation();
-    const [isAuthRoute, setIsAuthRoute] = useState(false);
+    const [isAuthRoute, setIsAuthRoute] = React.useState(false);
 
-    useEffect(() => {
+    React.useEffect(() => {
         setIsAuthRoute(authRoutes.includes(location.pathname));
 
         return () => {

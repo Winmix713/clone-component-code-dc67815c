@@ -1,30 +1,28 @@
-import {useState, createContext, useContext, useEffect} from 'react';
+import * as React from 'react';
 import {useLocation} from 'react-router-dom';
-import useScrollLock from '@hooks/useScrollLock';
 
-const SidebarContext = createContext(undefined);
+const SidebarContext = React.createContext(undefined);
 
 export const SidebarProvider = ({children}) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = React.useState(false);
     const location = useLocation();
-    const setIsLocked = useScrollLock();
 
     // close sidebar when route changes
-    useEffect(() => {
+    React.useEffect(() => {
         setOpen(false);
     }, [location]);
 
-    useEffect(() => {
+    // Handle scroll lock
+    React.useEffect(() => {
         if (open) {
-            setIsLocked(true);
+            document.documentElement.classList.add('no-scroll');
         } else {
-            setIsLocked(false);
+            document.documentElement.classList.remove('no-scroll');
         }
 
         return () => {
-            setIsLocked(false);
+            document.documentElement.classList.remove('no-scroll');
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open]);
 
     return (
@@ -34,4 +32,4 @@ export const SidebarProvider = ({children}) => {
     )
 }
 
-export const useSidebar = () => useContext(SidebarContext);
+export const useSidebar = () => React.useContext(SidebarContext);
