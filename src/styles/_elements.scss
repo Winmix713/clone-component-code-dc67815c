@@ -1,4 +1,4 @@
-/* UI elements */
+/* STADIUM ELECTRIC UI ELEMENTS */
 
 .card {
     background: var(--widget);
@@ -7,6 +7,54 @@
     height: 100%;
     box-shadow: var(--widget-shadow);
     position: relative;
+    border: 1px solid transparent;
+    transition: all var(--transition);
+
+    /* Corner cut effect */
+    &.cut-corner {
+        clip-path: var(--clip-corner);
+    }
+    
+    /* Diagonal effect */
+    &.diagonal {
+        clip-path: var(--clip-diagonal);
+    }
+
+    /* Glow on hover */
+    &:hover {
+        border-color: hsl(var(--electric-green) / 0.2);
+        box-shadow: var(--card-glow);
+    }
+    
+    /* Featured/highlighted cards */
+    &.featured {
+        border-color: hsl(var(--electric-green) / 0.3);
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--electric-gradient);
+        }
+    }
+    
+    /* Live indicator cards */
+    &.live {
+        &::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            background: hsl(var(--electric-orange));
+            border-radius: 50%;
+            animation: live-pulse 1.5s ease-in-out infinite;
+        }
+    }
 
     &.no-shadow {
         box-shadow: none;
@@ -61,18 +109,24 @@
     border: 1px solid var(--border);
     padding: 0 12px;
     border-radius: 4px;
-    transition: border-color var(--transition);
+    transition: all var(--transition);
+    background: transparent;
 
     &::placeholder {
         color: var(--placeholder);
     }
 
-    &:hover, &:focus {
-        border-color: var(--highlight);
+    &:hover {
+        border-color: hsl(var(--electric-green) / 0.3);
+    }
+    
+    &:focus {
+        border-color: hsl(var(--electric-green));
+        box-shadow: 0 0 0 3px hsl(var(--electric-green) / 0.1);
     }
 
     &--error {
-        border-color: var(--red);
+        border-color: hsl(var(--electric-orange));
     }
 
     &-wrapper {
@@ -123,11 +177,11 @@ textarea.field {
         font-size: 12px;
 
         &.positive {
-            color: #7ED321;
+            color: hsl(var(--electric-green));
         }
 
         &.negative {
-            color: var(--red);
+            color: hsl(var(--electric-orange));
         }
     }
 
@@ -141,19 +195,62 @@ textarea.field {
     height: 40px;
     border-radius: 4px;
     padding: 0 18px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.875rem;
+    font-weight: 500;
     font-family: var(--heading-font);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--btn-text);
     transition: all var(--transition);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    /* Electric shimmer on hover */
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            hsl(var(--electric-green) / 0.2),
+            transparent
+        );
+        transition: left 0.5s;
+    }
+    
+    &:hover::before {
+        left: 100%;
+    }
+
+    &--primary {
+        background: var(--electric-gradient);
+        color: hsl(var(--stadium-black));
+        
+        &:hover {
+            box-shadow: var(--glow-green);
+        }
+    }
+    
+    &--gold {
+        background: var(--gold-gradient);
+        color: hsl(var(--stadium-black));
+        
+        &:hover {
+            box-shadow: var(--glow-gold);
+        }
+    }
 
     &--switch {
         height: 55px;
         font-size: 0.875rem;
-        font-weight: 600;
+        font-weight: 400;
         font-family: var(--heading-font);
         color: var(--highlight);
         border-top: 1px solid var(--border);
@@ -176,8 +273,7 @@ textarea.field {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 205, 0, 0.1);
-            box-shadow: 0 1px 8px rgba(110, 110, 110, 0.1);
+            background: hsl(var(--electric-gold) / 0.1);
             z-index: 1;
             opacity: 0;
             transition: opacity var(--transition);
@@ -189,7 +285,7 @@ textarea.field {
 
         &:hover, &:focus,
         &.active {
-            border-bottom: 4px solid var(--accent);
+            border-bottom: 4px solid hsl(var(--electric-gold));
 
             &:before {
                 opacity: .2;
@@ -200,6 +296,11 @@ textarea.field {
     &--outlined {
         background: transparent;
         border: 1px solid var(--border);
+        
+        &:hover {
+            border-color: hsl(var(--electric-green));
+            color: hsl(var(--electric-green));
+        }
     }
 
     &--icon {
@@ -207,8 +308,8 @@ textarea.field {
         align-items: center;
         justify-content: center;
         gap: 5px;
-        background: var(--grass);
-        color: var(--header-dark);
+        background: var(--electric-gradient);
+        color: hsl(var(--stadium-black));
         border-radius: 8px;
         will-change: transform;
 
@@ -218,17 +319,15 @@ textarea.field {
 
         &:hover, &:focus {
             transform: scale(0.95);
-            box-shadow: 0 2px 10px rgba(126, 211, 33, 0.5);
-            background: var(--grass) !important;
-            color: var(--header-dark) !important;
+            box-shadow: var(--glow-green);
         }
     }
 
     &.active, &[aria-selected="true"],
     &:hover, &:focus {
-        background: var(--accent);
-        color: var(--header-light);
-        border-color: var(--accent);
+        background: hsl(var(--electric-gold));
+        color: hsl(var(--stadium-black));
+        border-color: hsl(var(--electric-gold));
     }
 
     &[disabled] {
@@ -238,19 +337,17 @@ textarea.field {
     }
 
     &.accept {
-        background: var(--grass);
+        background: hsl(var(--electric-green));
+        color: hsl(var(--stadium-black));
     }
 
     &.decline {
-        background: var(--red);
+        background: hsl(var(--electric-orange));
+        color: hsl(var(--stadium-black));
 
         &:hover {
-            background: var(--red);
+            background: hsl(var(--electric-orange));
         }
-    }
-
-    &.accept, &.decline {
-        color: var(--header-dark);
     }
 
     &--sm {
@@ -267,28 +364,47 @@ textarea.field {
     border: 1px solid var(--border);
     border-radius: 4px;
     color: var(--header);
+    transition: all var(--transition);
+    
+    &:hover {
+        border-color: hsl(var(--electric-green) / 0.5);
+        box-shadow: 0 0 10px hsl(var(--electric-green) / 0.2);
+    }
 }
 
 .avatar {
     border-radius: 50%;
     width: 80px;
     height: 80px;
+    border: 2px solid transparent;
+    transition: all var(--transition);
+    
+    &:hover {
+        border-color: hsl(var(--electric-green));
+        box-shadow: var(--glow-green);
+    }
 }
 
 .icon-btn {
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    background: var(--green);
-    color: #fff;
+    background: hsl(var(--electric-green));
+    color: hsl(var(--stadium-black));
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
     font-size: 1rem;
+    transition: all var(--transition);
+    
+    &:hover {
+        box-shadow: var(--glow-green);
+        transform: scale(1.05);
+    }
 
     &--blue {
-        background: linear-gradient(360deg, #0496FF 0%, #28B5E0 100%);
+        background: var(--blue-gradient);
     }
 
     &--cart {
@@ -312,7 +428,7 @@ a {
         transition: color var(--transition);
 
         &:hover, &:focus {
-            color: var(--highlight);
+            color: hsl(var(--electric-green));
         }
     }
 }
@@ -330,11 +446,17 @@ a {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    font-size: 1rem;
-    line-height: 1.25rem;
-    font-family: var(--heading-font);
+    font-size: 1.25rem;
+    line-height: 1;
+    font-family: var(--mono-font);
     font-weight: 700;
     color: var(--header);
+    background: var(--widget);
+    
+    &.live {
+        border-color: hsl(var(--electric-green) / 0.5);
+        animation: border-glow 2s ease-in-out infinite;
+    }
 
     &--alt {
         border-color: var(--score-alt);
@@ -367,7 +489,7 @@ a {
         }
 
         &.red i {
-            color: #ED0404;
+            color: hsl(var(--electric-orange));
         }
 
         &.light i {
@@ -396,10 +518,11 @@ a {
 .nav-arrow {
     font-size: 0.75rem;
     color: var(--nav-arrow-color);
-    transition: color var(--transition);
+    transition: all var(--transition);
 
     &:hover, &:focus {
-        color: var(--nav-arrow-hover-color);
+        color: hsl(var(--electric-green));
+        text-shadow: var(--glow-green);
     }
 }
 
@@ -408,9 +531,9 @@ a {
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    font-family: var(--heading-font);
+    font-family: var(--mono-font);
     font-weight: 700;
-    color: var(--header);
+    color: hsl(var(--electric-green));
 }
 
 .player-number,
@@ -425,10 +548,16 @@ a {
     height: 50px;
     width: auto;
     flex-shrink: 0;
+    transition: all var(--transition);
 
     img {
         height: 100%;
         width: auto;
+    }
+    
+    &:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 10px hsl(var(--electric-green) / 0.3));
     }
 
     &--sm {
@@ -451,14 +580,21 @@ a {
 .label {
     text-transform: uppercase;
     color: var(--label) !important;
-    letter-spacing: .45px;
+    letter-spacing: .15em;
+    font-family: var(--heading-font);
+    font-size: 0.75rem;
 
     &--store {
-        color: var(--highlight) !important;
+        color: hsl(var(--electric-gold)) !important;
 
         &.light {
             color: var(--olive) !important;;
         }
+    }
+    
+    &--live {
+        color: hsl(var(--electric-orange)) !important;
+        animation: live-pulse 1.5s ease-in-out infinite;
     }
 }
 
@@ -466,11 +602,16 @@ a {
     width: 25px;
     height: 25px;
     border-radius: 8px;
-    background: #E0E5D5;
+    background: hsl(var(--electric-green) / 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--header-light) !important;
+    color: hsl(var(--electric-green)) !important;
+    transition: all var(--transition);
+    
+    &:hover {
+        background: hsl(var(--electric-green) / 0.3);
+    }
 }
 
 .popup {
@@ -496,169 +637,103 @@ a {
 }
 
 .text-button {
-    color: var(--highlight);
+    color: hsl(var(--electric-green));
     font-family: var(--heading-font);
-    font-weight: 600;
-    font-size: .875rem;
-    position: relative;
-    line-height: 1;
-    height: fit-content;
-
-    &--sm {
-        font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all var(--transition);
+    
+    &:hover {
+        text-shadow: var(--glow-green);
     }
+}
 
-    &:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -3px;
-        width: 0;
-        height: 1.5px;
-        background: var(--highlight);
-        transition: width var(--transition);
+.tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    padding: 0 10px;
+    font-size: 0.625rem;
+    font-family: var(--heading-font);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    background: hsl(var(--electric-green) / 0.15);
+    color: hsl(var(--electric-green));
+    
+    &--gold {
+        background: hsl(var(--electric-gold) / 0.15);
+        color: hsl(var(--electric-gold));
     }
-
-    &:hover:after {
-        width: 100%;
+    
+    &--orange {
+        background: hsl(var(--electric-orange) / 0.15);
+        color: hsl(var(--electric-orange));
+    }
+    
+    &--blue {
+        background: hsl(var(--electric-blue) / 0.15);
+        color: hsl(var(--electric-blue));
     }
 }
 
 .chart-tooltip {
-    background: #fff;
-    box-shadow: 0 1px 8px rgba(65, 77, 85, 0.4);
-    border-radius: 8px;
-    height: 20px;
-    padding: 0 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    position: relative;
-    text-transform: uppercase;
-    font-family: var(--heading-font);
-    font-weight: 500;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
-    color: var(--header-light);
-
-    &:before {
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: -3px;
-        transform: translateX(-50%) rotate(-45deg);
-        width: 8px;
-        height: 8px;
-        display: block;
-    }
+    background: var(--widget) !important;
+    border: 1px solid hsl(var(--electric-green) / 0.3) !important;
+    border-radius: 4px !important;
+    box-shadow: var(--glow-green) !important;
 }
 
 .legend {
     display: flex;
     align-items: center;
-    gap: 8px;
-    line-height: 1;
-    letter-spacing: 0.45px;
-
-    &_color {
+    gap: 6px;
+    
+    &-dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
+        
+        &.green { background: hsl(var(--electric-green)); }
+        &.orange { background: hsl(var(--electric-orange)); }
+        &.blue { background: hsl(var(--electric-blue)); }
+        &.gold { background: hsl(var(--electric-gold)); }
     }
 }
 
-
-.tag {
-    text-transform: uppercase;
-    height: 25px;
-    padding: 0 10px;
-    border-radius: 8px;
-    color: var(--header-light) !important;
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.45px;
-    box-shadow: 0 1px 8px rgba(20, 46, 110, 0.1);
-    will-change: transform;
-
-    &.light {
-        color: var(--header-light) !important;
+/* Progress bars with electric styling */
+.progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    
+    &__fill {
+        height: 100%;
+        background: var(--electric-gradient);
+        border-radius: 2px;
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: var(--glow-green);
     }
-
-    &.dark {
-        color: var(--header-dark) !important;
-    }
-
-    &.animated {
-        animation: pulse 1.5s infinite;
-    }
-
-    &--accent {
-        background: var(--accent);
-    }
-
-    &--store {
-        background: var(--salmon);
-        color: var(--header-dark) !important;
-    }
-
-    &--overlay {
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 10;
-    }
-
-    &--social {
-        color: var(--header-dark) !important;
-        transition: transform var(--transition) !important;
-        width: 25px;
-        height: 25px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .icon {
-            font-size: 12px;
-
-            &-twitter {
-                margin-top: 2px;
-                margin-right: -1px;
-            }
-
-            &-youtube {
-                margin-top: -2px;
-            }
-        }
-
-        &:hover, &:focus {
-            transform: scale(.9);
-        }
-
-        // iPhone XR
-        @media screen and (min-width: 414px) {
-            &:not(.compact) {
-                width: fit-content;
-                padding: 0 10px;
-            }
-        }
+    
+    &--gold .progress-bar__fill {
+        background: var(--gold-gradient);
+        box-shadow: var(--glow-gold);
     }
 }
 
-// swiper
+/* Swiper customization */
 .swiper-pagination-progressbar {
-    top: unset !important;
-    bottom: 0;
-    z-index: 10;
-    background: rgba(40, 40, 40, 0.95) !important;
-
-    &-fill {
-        background: var(--accent) !important;
+    background: var(--border) !important;
+    
+    .swiper-pagination-progressbar-fill {
+        background: var(--electric-gradient) !important;
     }
 }
 
-// recharts
+/* Recharts */
 .recharts-tooltip-wrapper {
-    z-index: 10;
+    z-index: 1000 !important;
 }

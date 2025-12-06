@@ -1,50 +1,90 @@
-/* colors, fonts, effects, etc. */
+/* STADIUM ELECTRIC DESIGN SYSTEM */
 
 :root {
     --widget-scale: 0px;
+    
+    /* === STADIUM ELECTRIC PALETTE === */
+    /* Core Stadium Colors (HSL) */
+    --stadium-black: 240 10% 4%;
+    --stadium-deep: 220 15% 8%;
+    --stadium-surface: 220 12% 12%;
+    
+    /* Electric Accents (HSL) */
+    --electric-green: 153 100% 50%;
+    --electric-orange: 18 100% 50%;
+    --electric-blue: 195 100% 50%;
+    --electric-gold: 45 100% 62%;
+    
+    /* === LEGACY COLORS (for compatibility) === */
     --body-light: #FAFAF8;
-    --body-dark: #000;
+    --body-dark: hsl(240 10% 4%);
     --widget-light: #fff;
-    --widget-dark: #111312;
+    --widget-dark: hsl(220 12% 12%);
     --text-light: #585954;
-    --text-dark: #8EA2AB;
+    --text-dark: #9CA3AF;
     --border-light: #E0E5D5;
-    --border-dark: #24292B;
+    --border-dark: hsl(220 10% 18%);
     --header-light: #292B23;
-    --header-dark: #fff;
+    --header-dark: #F9FAFB;
     --btn-text-light: #3E4237;
     --nav-arrow: #A2C0D4;
-    --accent: #FDCA40;
-    --azure: #0496FF;
+    
+    /* Accent colors using electric palette */
+    --accent: hsl(var(--electric-gold));
+    --azure: hsl(var(--electric-blue));
     --blue: #2662F0;
-    --green: #13783e;
-    --grass: #7ED321;
-    --neon-green: #04E762;
+    --green: hsl(153 60% 30%);
+    --grass: hsl(var(--electric-green));
+    --neon-green: hsl(var(--electric-green));
     --pink: #DE0D92;
-    --red: #ED0423;
+    --red: hsl(var(--electric-orange));
     --purple: #6665DD;
     --salmon: #FF715B;
-    --orange: #F17105;
+    --orange: hsl(var(--electric-orange));
     --turquoise: #34d1bf;
-    --olive: #6F8738;
-    --olive-light: #C1C200;
+    --olive: hsl(78 50% 35%);
+    --olive-light: hsl(60 100% 38%);
     --pastel-blue: #87BFFF;
-    --electro: #29E7CD;
+    --electro: hsl(var(--electric-green));
     --light-gray: #FAFBFD;
     --light-azure: #BDE0F6;
     --haki: #B0B7A1;
     --fb: #3B5998;
-    --black: #1B1F22;
-    --black-2: #0C0C0C;
-    --black-3: #3A3A3A;
+    --black: hsl(var(--stadium-black));
+    --black-2: hsl(var(--stadium-deep));
+    --black-3: hsl(var(--stadium-surface));
     --cold-white: #EDEDED;
-    --blue-gradient: linear-gradient(360deg, #0496FF 0%, #28B5E0 100%);
-    --body-font: 'Open Sans', sans-serif;
-    --heading-font: 'Montserrat', sans-serif;
-    --transition: .3s ease-in-out;
+    
+    /* Gradients */
+    --blue-gradient: linear-gradient(135deg, hsl(var(--electric-blue)) 0%, hsl(var(--electric-green)) 100%);
+    --electric-gradient: linear-gradient(135deg, hsl(var(--electric-green)) 0%, hsl(var(--electric-blue)) 100%);
+    --gold-gradient: linear-gradient(135deg, hsl(var(--electric-gold)) 0%, hsl(var(--electric-orange)) 100%);
+    --stadium-glow: radial-gradient(ellipse at center, hsl(var(--electric-green) / 0.1) 0%, transparent 70%);
+    
+    /* === TYPOGRAPHY === */
+    --body-font: 'DM Sans', system-ui, sans-serif;
+    --heading-font: 'Bebas Neue', Impact, sans-serif;
+    --mono-font: 'JetBrains Mono', monospace;
+    
+    /* === EFFECTS === */
+    --transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: .15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: .5s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Shadows */
+    --glow-green: 0 0 20px hsl(var(--electric-green) / 0.4);
+    --glow-orange: 0 0 20px hsl(var(--electric-orange) / 0.4);
+    --glow-gold: 0 0 25px hsl(var(--electric-gold) / 0.5);
+    --shadow-stadium: 0 4px 30px hsl(0 0% 0% / 0.5);
+    
+    /* Layout */
     --main-sidebar-width: 0;
     --header-active: 0px;
     --card-padding: 20px;
+    
+    /* Clip Paths */
+    --clip-corner: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    --clip-diagonal: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
 }
 
 @media screen and (min-width: 414px) {

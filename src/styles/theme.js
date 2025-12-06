@@ -13,11 +13,11 @@ export default createGlobalStyle`
     })};
     --widget-shadow: ${theme('theme', {
       light: '0 1px 8px rgba(110, 110, 110, .1)',
-      dark: '0 1px 8px rgba(33, 33, 33, .1)',
+      dark: '0 4px 30px rgba(0, 0, 0, .4)',
     })};
     --winget-inner-shadow: ${theme('theme', {
       light: 'linear-gradient(270deg, rgba(255, 255, 255, 0.0001) 0%, #FFFFFF 100%)',
-      dark: 'linear-gradient(270deg, rgba(17, 19, 18, 0.0001) 0%, #111312 100%)',
+      dark: 'linear-gradient(270deg, rgba(17, 19, 18, 0.0001) 0%, hsl(220 12% 12%) 100%)',
     })};
     --text: ${theme('theme', {
       light: 'var(--text-light)',
@@ -45,10 +45,10 @@ export default createGlobalStyle`
     })};
     --highlight: ${theme('theme', {
       light: 'var(--olive)',
-      dark: 'var(--accent)',
+      dark: 'hsl(var(--electric-gold))',
     })};
     --highlight-invert: ${theme('theme', {
-        light: 'var(--accent)',
+        light: 'hsl(var(--electric-gold))',
         dark: 'var(--olive)',
     })};
     --tooltip-bg: ${theme('theme', {
@@ -57,23 +57,33 @@ export default createGlobalStyle`
     })};
     --nav-arrow-color: ${theme('theme', {
         light: 'var(--header)',
-        dark: '#8EA2AB',
+        dark: 'hsl(var(--electric-blue) / 0.7)',
     })};
     --nav-arrow-hover-color: ${theme('theme', {
         light: 'var(--blue)',
-        dark: 'var(--accent)',
+        dark: 'hsl(var(--electric-green))',
     })};
     --divider: ${theme('theme', {
         light: '#ccc',
-        dark: '#3e3e3e',
+        dark: 'hsl(220 10% 20%)',
     })};
     --placeholder: ${theme('theme', {
         light: '#8C9876',
-        dark: '#999999'
+        dark: '#6B7280'
     })};
     --score-alt: ${theme('theme', {
         light: 'var(--border)',
-        dark: 'var(--black-3)'
+        dark: 'hsl(var(--stadium-surface))'
+    })};
+    
+    /* === STADIUM ELECTRIC THEME ENHANCEMENTS === */
+    --card-glow: ${theme('theme', {
+        light: '0 1px 8px rgba(110, 110, 110, .1)',
+        dark: '0 0 0 1px hsl(var(--electric-green) / 0.1), 0 4px 30px rgba(0, 0, 0, .4)',
+    })};
+    --accent-glow: ${theme('theme', {
+        light: 'none',
+        dark: 'var(--glow-green)',
     })};
   }
 `;
