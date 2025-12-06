@@ -1,10 +1,12 @@
-/* typography and text related utility classes */
+/* STADIUM ELECTRIC TYPOGRAPHY */
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: var(--heading-font);
-    font-weight: 700;
+    font-weight: 400;
     color: var(--header);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 
     &.light {
         color: var(--header-light);
@@ -13,47 +15,112 @@ h1, h2, h3, h4, h5, h6,
     &.dark {
         color: var(--header-dark);
     }
+    
+    &.gradient {
+        background: var(--electric-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    &.gold {
+        background: var(--gold-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 }
 
 h1, .h1 {
-    font-size: 1.75rem;
-    line-height: 1.4rem;
+    font-size: 2.5rem;
+    line-height: 1;
+    letter-spacing: 0.08em;
 
     &.large {
-        font-size: 3rem;
-        height: 3rem;
+        font-size: 4rem;
+        height: 4rem;
         display: inline-flex;
         align-items: center;
+    }
+    
+    &.hero {
+        font-size: 5rem;
+        letter-spacing: 0.1em;
+        text-shadow: 0 0 40px hsl(var(--electric-green) / 0.3);
     }
 }
 
 h2, .h2 {
-    font-size: 1.375rem;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    letter-spacing: 0.06em;
 }
 
 h3, .h3 {
-    font-size: 1rem;
-    line-height: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
 }
 
 h4, .h4 {
-    font-size: 0.875rem;
-    font-weight: 600;
-    line-height: 1.25rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0.03em;
 }
 
 h5, .h5 {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
 }
 
 h6, .h6 {
-    font-size: 0.5625rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
 }
 
+/* Stats typography - uses mono font */
+.stat-value {
+    font-family: var(--mono-font);
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    color: hsl(var(--electric-green));
+    text-shadow: var(--glow-green);
+}
+
+.stat-label {
+    font-family: var(--heading-font);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text);
+}
+
+.score-display {
+    font-family: var(--mono-font);
+    font-weight: 700;
+    font-size: 3rem;
+    letter-spacing: 0.05em;
+    
+    &.glow {
+        text-shadow: 0 0 30px currentColor;
+    }
+}
+
+/* Utility classes */
 .heading-font {
     font-family: var(--heading-font);
+}
+
+.body-font {
+    font-family: var(--body-font);
+}
+
+.mono-font {
+    font-family: var(--mono-font);
 }
 
 .text-16 {
@@ -71,4 +138,25 @@ h6, .h6 {
 
 .lh-1 {
     line-height: 1;
+}
+
+/* Electric text effects */
+.text-electric {
+    color: hsl(var(--electric-green));
+}
+
+.text-gold {
+    color: hsl(var(--electric-gold));
+}
+
+.text-fire {
+    color: hsl(var(--electric-orange));
+}
+
+.text-ice {
+    color: hsl(var(--electric-blue));
+}
+
+.text-glow {
+    text-shadow: 0 0 20px currentColor;
 }

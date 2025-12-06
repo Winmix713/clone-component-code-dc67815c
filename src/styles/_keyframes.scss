@@ -1,26 +1,224 @@
-/* keyframes */
+/* STADIUM ELECTRIC ANIMATIONS */
+
+/* === CORE ANIMATIONS === */
 
 @keyframes pulse {
-    0% {
-        transform: scale(.9);
-    }
-    50% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(.9);
-    }
+    0% { transform: scale(.9); }
+    50% { transform: scale(1); }
+    100% { transform: scale(.9); }
 }
 
 @keyframes rotate-center {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* === FADE ANIMATIONS === */
+
+@keyframes fade-up {
     0% {
-        transform: rotate(0deg);
+        opacity: 0;
+        transform: translateY(20px);
     }
     100% {
-        transform: rotate(360deg);
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fade-in-scale {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* === SLIDE ANIMATIONS === */
+
+@keyframes slide-diagonal {
+    0% {
+        opacity: 0;
+        transform: translate(-30px, 30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes slide-in-right {
+    0% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-in-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* === GLOW & PULSE EFFECTS === */
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px hsl(var(--electric-green) / 0.3);
+    }
+    50% {
+        box-shadow: 0 0 25px hsl(var(--electric-green) / 0.7);
+    }
+}
+
+@keyframes pulse-glow-orange {
+    0%, 100% {
+        box-shadow: 0 0 5px hsl(var(--electric-orange) / 0.3);
+    }
+    50% {
+        box-shadow: 0 0 25px hsl(var(--electric-orange) / 0.7);
+    }
+}
+
+@keyframes border-glow {
+    0%, 100% {
+        border-color: hsl(var(--electric-green) / 0.3);
+    }
+    50% {
+        border-color: hsl(var(--electric-green) / 0.8);
+    }
+}
+
+/* === SHIMMER EFFECT === */
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* === FLOAT & HOVER === */
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes float-rotate {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(2deg);
+    }
+}
+
+/* === COUNTER ANIMATION === */
+
+@keyframes count-up {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === LIVE INDICATOR === */
+
+@keyframes live-pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+/* === SCAN LINE EFFECT === */
+
+@keyframes scan-line {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* === UTILITY CLASSES === */
+
 .rotate-center {
     animation: rotate-center 3s ease-in-out infinite;
+}
+
+.animate-fade-up {
+    animation: fade-up 0.5s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-slide-diagonal {
+    animation: slide-diagonal 0.6s ease-out forwards;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        hsl(var(--electric-green) / 0.1) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+}
+
+.animate-live {
+    animation: live-pulse 1.5s ease-in-out infinite;
+}
+
+/* === STAGGERED ANIMATION DELAYS === */
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+.stagger-8 { animation-delay: 0.8s; }
+
+/* Pre-animation state for staggered items */
+.stagger-item {
+    opacity: 0;
 }
